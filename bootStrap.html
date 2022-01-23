@@ -1,0 +1,201 @@
+<DOCTYPE html>
+  <html lang="en">
+  <head>
+    <!-- Use correct character set. -->
+    <meta charset="utf-8">
+
+    <!-- Tell IE to use the latest, best version. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+    <!-- custom fonts and styles for the bootstrap template -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"  crossorigin="anonymous">
+
+    <link href="css/sb-admin-2.css" type="text/css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"
+          integrity="sha512-
+wcw6ts8Anuw10Mzh9Ytw4pylW8+NAD4ch3lqm9lzAsTxg0GFeJgoAtxuCLREZSC5lUXdVyo/7yfsqFjQ4S+aKw=="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"
+            integrity="sha512-
+mNqn2Wg7tSToJhvHcqfzLMU6J4mkOImSPTxVZAdo+lcPlk+GhZmYgACEe0x35K7YzW1zJ7XyJV/TT1MrdXvMcA==
+" crossorigin="">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/basicMap.js"></script>
+    <script src="js/getLocation.js"></script>
+    <script src="js/uploadData.js"></script>
+    <script src="js/plotData.js"></script>
+    <script src="js/trackLocation.js"></script>
+    <script src="js/getAnswers.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style type="text/css">
+      #setmapid {height: 700px;
+      width: 700px;
+      z-index: 0}
+      #quizmapid {
+        height: 700px;
+        width: 400px;
+        z-index: 0}
+    </style>
+
+    <title>Bootstrap Simplified Template</title>
+    <!-- adapted from: https://blackrockdigital.github.io/startbootstrap-sb-admin-2/ -->
+
+  </head>
+  <body id="page-top">
+
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" >
+          <div class="sidebar-brand-text mx-3">CEGE0043 App</div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+<!--    Questions sidebar    -->
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item d-none d-lg-block" >
+          <a class="nav-link collapsed" href="#"data-target="" onclick="loadSetPage();" aria-expanded="true" aria-controls="collapseOne">
+            <!-- the next line is the cog image -->
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Set Questions</span>
+          </a>
+        </li>
+
+        <li class="nav-item d-none d-lg-block">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Question Layers</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="#"><input onclick="checkSet();" checked="true" type="checkbox" id="set chbx"> Your questions</a>
+            <a class="collapse-item" href="#"><input onclick=checkWeek(); type="checkbox" id="week chbx"> Questions from the week</a>
+            <a class="collapse-item" href="#"><input onclick="checkNear();" type="checkbox" id="near chbx"> Questions near to you</a>
+          </div>
+        </div>
+        </li>
+
+        <li class="nav-item d-none d-lg-block" >
+          <a class="nav-link collapsed" href="#" data-target="" onclick="loadParticipation();" aria-expanded="true" aria-controls="collapseOne">
+            <!-- the next line is the cog image -->
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Participation</span>
+          </a>
+        </li>
+
+
+        <li class="nav-item d-none d-lg-block" >
+          <a class="nav-link collapsed" href="#"data-target="" onclick="loadHard();" aria-expanded="true" aria-controls="collapseOne">
+            <!-- the next line is the cog image -->
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Most difficult questions</span>
+          </a>
+        </li>
+
+        <li class="nav-item d-none d-lg-block" >
+          <a class="nav-link collapsed" href="#" data-target="" onclick="loadBigHelp();" aria-expanded="true" aria-controls="collapseOne">
+            <!-- the next line is the cog image -->
+            <i class="fas fa-fw fa-cog"></i>
+            <span>HELP</span>
+          </a>
+        </li>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item d-lg-none" >
+          <a class="nav-link collapsed" href="#" onclick="loadQuizPage()" aria-expanded="true" aria-controls="collapseThree">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Play Quiz</span>
+          </a>
+        </li>
+
+<!--    Quiz sidebar    -->
+
+        <li class="nav-item d-lg-none">
+          <a class="nav-link collapsed"  data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Quiz Layers</span>
+          </a>
+          <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <a class="collapse-item"><input onclick="checkAll();" checked="true" type="checkbox" id="all chbx"> Your questions</a>
+              <a class="collapse-item" ><input onclick="checkLast();" type="checkbox" id="last chbx"> Last 5 Answered</a>
+              <a class="collapse-item" ><input onclick="checkMissing();" type="checkbox" id="missed chbx"> Missed questions</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="nav-item d-lg-none" >
+          <a class="nav-link collapsed" href="#" onclick="loadTop()" aria-expanded="true" aria-controls="collapseThree">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Top Scorers</span>
+          </a>
+        </li>
+
+        <li class="nav-item d-lg-none" >
+          <a class="nav-link collapsed" href="#" onclick="loadRank()" aria-expanded="true" aria-controls="collapseThree">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>My rank</span>
+          </a>
+        </li>
+
+
+        <li class="nav-item d-lg-none" >
+          <a class="nav-link collapsed" href="#" onclick="loadSmallHelp()" aria-expanded="true" aria-controls="collapseThree">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>HELP</span>
+          </a>
+        </li>
+
+       </ul>
+       <!-- End of Sidebar -->
+      <div id="content-wrapper">
+  <!--   For large screens   -->
+        <div id="large-screen-wrapper" class="d-none d-lg-block"></div>
+
+  <!--  For small screens  -->
+        <div id="small-screen-wrapper" class="d-lg-none"></div>
+        <!-- End of Main Content -->
+      </div>
+    <!-- end of wrapper -->
+    </div>
+  </body>
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>  
+
+
+  
+  <!-- Bootstrap core JavaScript-->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+  <script src="js/sb-admin-2.js"></script>
+
+
+<!-- functionality to get ports -->
+<!-- load utilities.js -->
+<script src="js/utilities.js"></script> 
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  console.log("listener domcontentloaded");
+  getPorts();
+  initialPageLoad();
+}, false);
+
+</script>
+</html>

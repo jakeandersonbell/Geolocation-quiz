@@ -1,0 +1,8 @@
+# Ignore intellij .idea folders
+.idea
+
+# Ignore zip files
+*.zip
+
+# Ignore node modules folder
+node_modules
